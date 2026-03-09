@@ -56,6 +56,15 @@ header{
 .gallery img:hover{
     transform:scale(1.05);
 }
+.gallery figure{
+text-align:center;
+}
+
+.gallery figcaption{
+margin-top:8px;
+font-size:14px;
+color:white;
+}
 
 /* footer */
 
