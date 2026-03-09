@@ -1,3 +1,5 @@
+/* BASIS */
+
 body{
     margin:0;
     font-family:Arial, sans-serif;
@@ -19,7 +21,11 @@ body{
     animation:rainbow 10s infinite;
 }
 
-/* regenboog animatie */
+.hidden{
+    display:none !important;
+}
+
+/* REGENBOOG ANIMATIE */
 
 @keyframes rainbow{
     0%{background-position:0% 50%;}
@@ -27,30 +33,15 @@ body{
     100%{background-position:0% 50%;}
 }
 
-/* header */
-
-header{
-    text-align:center;
-    padding:40px;
-    color:white;
-    background:rgba(0,0,0,0.5);
-    position:sticky;
-    top:0;
-    z-index:10;
-    backdrop-filter:blur(6px);
-}
-
-/* navbar */
+/* NAVBAR */
 
 .navbar{
-    margin-top:20px;
     display:flex;
     justify-content:center;
-    gap:15px;
+    gap:12px;
     flex-wrap:wrap;
+    margin-top:15px;
 }
-
-/* navbar links */
 
 .navbar a{
     text-decoration:none;
@@ -66,10 +57,7 @@ header{
 .navbar a:hover{
     background:white;
     color:black;
-    transform:scale(1.05);
 }
-
-/* actieve pagina lijn */
 
 .navbar a.active::after{
     content:"";
@@ -82,7 +70,20 @@ header{
     border-radius:2px;
 }
 
-/* gallery */
+/* HEADER */
+
+header{
+    text-align:center;
+    padding:40px;
+    color:white;
+    background:rgba(0,0,0,0.5);
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter:blur(6px);
+}
+
+/* GALLERY */
 
 .gallery{
     display:grid;
@@ -100,7 +101,6 @@ header{
     padding:14px;
     backdrop-filter:blur(8px);
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
-    transition:transform 0.25s ease;
 }
 
 .gallery img{
@@ -119,10 +119,9 @@ header{
     margin-top:8px;
     font-size:14px;
     color:white;
-    line-height:1.4;
 }
 
-/* footer */
+/* FOOTER */
 
 footer{
     text-align:center;
@@ -131,185 +130,7 @@ footer{
     background:rgba(0,0,0,0.5);
 }
 
-/* algemeen */
-
-.hidden{
-    display:none !important;
-}
-
-/* popup */
-
-.popup{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.7);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    padding:20px;
-}
-
-.popup-box{
-    background:white;
-    color:black;
-    padding:30px;
-    border-radius:18px;
-    text-align:center;
-    width:min(90%, 380px);
-    box-shadow:0 20px 50px rgba(0,0,0,0.35);
-    animation:popIn 0.25s ease;
-}
-
-.popup-box button{
-    margin-top:15px;
-    padding:12px 18px;
-    border:none;
-    background:black;
-    color:white;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:15px;
-}
-
-/* alarm */
-
-.alarm-box{
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    
-    width:320px;
-    background:#111;
-    color:white;
-    border:4px solid red;
-    padding:25px;
-    border-radius:16px;
-    z-index:9998;
-    text-align:center;
-
-    box-shadow:0 0 30px rgba(255,0,0,0.9);
-    animation:alarmShake 0.20s infinite alternate;
-}
-
-.alarm-box button{
-    margin-top:10px;
-    padding:12px;
-    width:100%;
-    border:none;
-    background:red;
-    color:white;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:16px;
-}
-
-/* jumpscare */
-
-.jumpscare{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.92);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:10000;
-}
-
-.jumpscare-content{
-    position:relative;
-}
-
-.jumpscare img{
-    max-width:90vw;
-    max-height:90vh;
-    border-radius:20px;
-    box-shadow:0 0 40px rgba(255,255,255,0.35);
-    animation:jumpscareZoom 0.18s ease-out;
-}
-
-.jumpscare-text{
-    position:absolute;
-    top:8%;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:clamp(42px, 10vw, 120px);
-    font-weight:900;
-    color:white;
-    letter-spacing:6px;
-    text-shadow:
-        0 0 10px red,
-        0 0 20px red,
-        3px 3px 0 black;
-}
-
-/* random message */
-
-.troll-message{
-    position:fixed;
-    top:20px;
-    left:50%;
-    transform:translateX(-50%);
-    background:black;
-    color:white;
-    padding:12px 22px;
-    border-radius:12px;
-    z-index:10001;
-}
-
-/* fake crash */
-
-.fake-crash{
-    position:fixed;
-    inset:0;
-    background:black;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:10002;
-}
-
-.fake-crash-box{
-    color:white;
-    text-align:center;
-    font-size:28px;
-}
-
-/* animaties */
-
-@keyframes popIn{
-    from{
-        transform:scale(0.85);
-        opacity:0;
-    }
-    to{
-        transform:scale(1);
-        opacity:1;
-    }
-}
-
-@keyframes alarmShake{
-    from{transform:translate(-50%, -50%) translateX(-3px);}
-    to{transform:translate(-50%, -50%) translateX(3px);}
-}
-
-@keyframes jumpscareZoom{
-    0%{
-        transform:scale(0.2);
-        opacity:0;
-    }
-    100%{
-        transform:scale(1);
-        opacity:1;
-    }
-}
-
-/* pagina layout */
+/* MEMBER PAGINA */
 
 .member-page{
     min-height:70vh;
@@ -318,8 +139,6 @@ footer{
     align-items:center;
     padding:40px;
 }
-
-/* verhaal box */
 
 .member-story{
     max-width:700px;
@@ -335,28 +154,23 @@ footer{
     justify-content:center;
 }
 
-/* paragrafen */
-
 .member-story p{
     margin:10px 0;
-    text-align:center;
 }
-
-/* titel */
 
 .member-story h2{
     margin-bottom:20px;
 }
 
 .member-story h3{
-    margin-top:25px;
+    margin-top:20px;
 }
 
-/* summon knop */
+/* SUMMON BUTTON */
 
 .summon-btn{
     margin-top:30px;
-    padding:18px 32px;
+    padding:18px 30px;
     font-size:18px;
     font-weight:bold;
     background:black;
@@ -368,41 +182,37 @@ footer{
 }
 
 .summon-btn:hover{
-    transform:scale(1.08);
+    transform:scale(1.1);
     background:red;
 }
 
+/* SUMMON SCREEN */
+
 .summon{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.95);
+    inset:0;
+    background:black;
     display:flex;
     justify-content:center;
     align-items:center;
-    z-index:10003;
-    padding:20px;
-    box-sizing:border-box;
+    z-index:10000;
 }
 
 .summon-content{
     text-align:center;
     color:white;
-    max-width:90vw;
 }
 
 .summon img{
     max-width:80vw;
-    max-height:65vh;
+    max-height:70vh;
     border-radius:20px;
     box-shadow:0 0 40px red;
     margin-top:20px;
 }
 
 .summon-text{
-    font-size:clamp(30px, 6vw, 70px);
+    font-size:clamp(40px,8vw,90px);
     font-weight:bold;
     letter-spacing:5px;
     animation:summonFlash 0.4s infinite alternate;
@@ -423,4 +233,115 @@ footer{
 @keyframes summonFlash{
     from{opacity:1;}
     to{opacity:0.5;}
+}
+
+/* POPUP */
+
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.popup-box{
+    background:white;
+    color:black;
+    padding:30px;
+    border-radius:18px;
+    text-align:center;
+    width:300px;
+}
+
+/* ALARM */
+
+.alarm-box{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:320px;
+    background:#111;
+    color:white;
+    border:4px solid red;
+    padding:25px;
+    border-radius:16px;
+    z-index:9998;
+    text-align:center;
+}
+
+.alarm-box button{
+    margin-top:10px;
+    padding:12px;
+    width:100%;
+    border:none;
+    background:red;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* JUMPSCARE */
+
+.jumpscare{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.95);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:10000;
+}
+
+.jumpscare img{
+    max-width:90vw;
+    max-height:90vh;
+    border-radius:20px;
+}
+
+.jumpscare-text{
+    position:absolute;
+    top:8%;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:clamp(40px,10vw,120px);
+    font-weight:900;
+    color:white;
+    text-shadow:0 0 10px red;
+}
+
+/* TROLL MESSAGE */
+
+.troll-message{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:black;
+    color:white;
+    padding:12px 22px;
+    border-radius:12px;
+    z-index:10001;
+    font-weight:bold;
+}
+
+/* FAKE CRASH */
+
+.fake-crash{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:10002;
+}
+
+.fake-crash-box{
+    color:white;
+    text-align:center;
+    font-size:28px;
 }
