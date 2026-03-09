@@ -7,105 +7,273 @@ const alarmSound = document.getElementById("alarm-sound");
 
 const jumpscare = document.getElementById("jumpscare");
 const jumpscareImage = document.getElementById("jumpscare-image");
-const closeJumpscare = document.getElementById("close-jumpscare");
+const closeJumpscareBtn = document.getElementById("close-jumpscare");
 
-let alarmActive=false;
-let stopClicks=0;
+const trollMessage = document.getElementById("troll-message");
+const fakeCrash = document.getElementById("fake-crash");
 
-window.addEventListener("scroll",()=>{
-if(window.scrollY>500){
-popup.classList.remove("hidden");
-}
-});
+let popupShown = false;
+let alarmActive = false;
+let stopClicks = 0;
+let reverseScroll = false;
 
-closePopupBtn.onclick=()=>{
-popup.classList.add("hidden");
-};
-
-function startAlarm(){
-
-alarmActive=true;
-stopClicks=0;
-
-alarmBox.classList.remove("hidden");
-document.body.classList.add("alarm-flash");
-
-alarmSound.play().catch(()=>{});
-
-}
-
-function stopAlarm(){
-
-alarmActive=false;
-
-alarmBox.classList.add("hidden");
-document.body.classList.remove("alarm-flash");
-
-alarmSound.pause();
-alarmSound.currentTime=0;
-
-scheduleAlarm();
-
-}
-
-stopAlarmBtn.onclick=()=>{
-
-stopClicks++;
-stopAlarmBtn.textContent=`Stop alarm (${stopClicks}/10)`;
-
-if(stopClicks>=10){
-stopAlarm();
-}
-
-};
-
-function scheduleAlarm(){
-
-let delay=Math.random()*20000+15000;
-
-setTimeout(()=>{
-startAlarm();
-},delay);
-
-}
-
-const jumpscareImages=[
-"../images/gaykids1.png",
-"../images/gaykids2.png",
-"../images/gaykids3.png",
-"../images/gaykids4.png",
-"../images/gaykids5.png",
-"../images/gaykids6.png",
-"../images/gaykids7.png",
-"../images/gaykids8.png",
-"../images/gaykids9.png",
-"../images/gaykids10.png"
+const titles = [
+    "GAY KIDS?!?!?!",
+    "Florissa detected",
+    "STRAYKIDS ALERT",
+    "bro no homo",
+    "gaykid database loading..."
 ];
 
-function randomJumpscare(){
+const trollTexts = [
+    "Florissa detected",
+    "Too much Stray Kids detected",
+    "gaykid.exe running",
+    "bromance level critical",
+    "STRAYKIDS ENERGY OVERLOAD",
+    "bias protection mode enabled",
+    "gaykid archive unlocked"
+];
 
-let delay=Math.random()*20000+10000;
+const jumpscareImages = [
+    "../images/gaykids1.png",
+    "../images/gaykids2.png",
+    "../images/gaykids3.png",
+    "../images/gaykids4.png",
+    "../images/gaykids5.png",
+    "../images/gaykids6.png",
+    "../images/gaykids7.png",
+    "../images/gaykids8.png",
+    "../images/gaykids9.png",
+    "../images/gaykids10.png",
+    "../images/gaykids11.png",
+    "../images/gaykids12.png",
+    "../images/gaykids13.png",
+    "../images/gaykids14.png",
+    "../images/gaykids15.png",
+    "../images/gaykids16.png",
+    "../images/gaykids17.png",
+    "../images/gaykids18.png",
+    "../images/gaykids19.png",
+    "../images/gaykids20.png",
+    "../images/gaykids21.png",
+    "../images/gaykids22.png",
+    "../images/gaykids23.png",
+    "../images/gaykids24.png",
+    "../images/gaykids25.png",
+    "../images/gaykids26.png",
+    "../images/gaykids27.png",
+    "../images/gaykids28.png",
+    "../images/gaykids29.png",
+    "../images/gaykids30.png",
+    "../images/gaykids31.png",
+    "../images/gaykids32.png",
+    "../images/gaykids33.png",
+    "../images/gaykids34.png",
+    "../images/gaykids35.png",
+    "../images/gaykids36.png",
+    "../images/gaykids37.png",
+    "../images/gaykids38.png",
+    "../images/gaykids39.png",
+    "../images/gaykids40.png"
+];
 
-setTimeout(()=>{
+// popup bij scroll
+window.addEventListener("scroll", () => {
+    if (!popupShown && window.scrollY > 500) {
+        popup.classList.remove("hidden");
+        popupShown = true;
+    }
+});
 
-let random=jumpscareImages[Math.floor(Math.random()*jumpscareImages.length)];
+closePopupBtn.addEventListener("click", () => {
+    popup.classList.add("hidden");
+});
 
-jumpscareImage.src=random;
-
-jumpscare.classList.remove("hidden");
-
-setTimeout(()=>{
-jumpscare.classList.add("hidden");
-randomJumpscare();
-},2000);
-
-},delay);
-
+// alarm
+function scheduleNextAlarm() {
+    const randomDelay = Math.floor(Math.random() * 20000) + 15000;
+    setTimeout(() => {
+        startAlarm();
+    }, randomDelay);
 }
 
-closeJumpscare.onclick=()=>{
-jumpscare.classList.add("hidden");
-};
+function startAlarm() {
+    if (alarmActive) return;
 
-scheduleAlarm();
-randomJumpscare();
+    alarmActive = true;
+    stopClicks = 0;
+    stopAlarmBtn.textContent = `Stop alarm (${stopClicks}/10)`;
+    alarmBox.classList.remove("hidden");
+    document.body.classList.add("alarm-flash");
+    document.body.classList.add("screen-shake");
+
+    if (alarmSound) {
+        alarmSound.currentTime = 0;
+        alarmSound.play().catch(() => {});
+    }
+}
+
+function stopAlarm() {
+    alarmActive = false;
+    alarmBox.classList.add("hidden");
+    document.body.classList.remove("alarm-flash");
+    document.body.classList.remove("screen-shake");
+
+    if (alarmSound) {
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+    }
+
+    scheduleNextAlarm();
+}
+
+stopAlarmBtn.addEventListener("click", () => {
+    if (!alarmActive) return;
+
+    stopClicks++;
+    stopAlarmBtn.textContent = `Stop alarm (${stopClicks}/10)`;
+
+    if (stopClicks >= 10) {
+        stopAlarm();
+    }
+});
+
+// jumpscare
+function scheduleNextJumpscare() {
+    const randomDelay = Math.floor(Math.random() * 25000) + 12000;
+    setTimeout(() => {
+        showJumpscare();
+    }, randomDelay);
+}
+
+function showJumpscare() {
+    if (alarmActive) {
+        scheduleNextJumpscare();
+        return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * jumpscareImages.length);
+    jumpscareImage.src = jumpscareImages[randomIndex];
+    jumpscare.classList.remove("hidden");
+
+    setTimeout(() => {
+        if (!jumpscare.classList.contains("hidden")) {
+            hideJumpscare();
+        }
+    }, 2500);
+}
+
+function hideJumpscare() {
+    jumpscare.classList.add("hidden");
+    scheduleNextJumpscare();
+}
+
+closeJumpscareBtn.addEventListener("click", hideJumpscare);
+
+// fake download popup
+function fakeDownloadPopup() {
+    const delay = Math.random() * 30000 + 15000;
+
+    setTimeout(() => {
+        alert("Download gestart: straykids_collection_2026.zip");
+        fakeDownloadPopup();
+    }, delay);
+}
+
+// tab title troll
+setInterval(() => {
+    document.title = titles[Math.floor(Math.random() * titles.length)];
+}, 4000);
+
+// reverse scroll troll
+setInterval(() => {
+    reverseScroll = Math.random() < 0.3;
+}, 10000);
+
+window.addEventListener("wheel", (e) => {
+    if (reverseScroll) {
+        window.scrollBy(0, -e.deltaY);
+        e.preventDefault();
+    }
+}, { passive: false });
+
+// random bericht bovenin
+function randomMessage() {
+    const delay = Math.random() * 25000 + 15000;
+
+    setTimeout(() => {
+        trollMessage.textContent = trollTexts[Math.floor(Math.random() * trollTexts.length)];
+        trollMessage.classList.remove("hidden");
+
+        setTimeout(() => {
+            trollMessage.classList.add("hidden");
+        }, 4000);
+
+        randomMessage();
+    }, delay);
+}
+
+// random afbeelding springt
+function randomImageJump() {
+    setInterval(() => {
+        const images = document.querySelectorAll(".gallery img");
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+
+        randomImage.style.transform = "translateY(-20px) rotate(-2deg)";
+
+        setTimeout(() => {
+            randomImage.style.transform = "";
+        }, 500);
+    }, 6000);
+}
+
+// fake crash
+function fakeCrashTroll() {
+    const delay = Math.random() * 60000 + 40000;
+
+    setTimeout(() => {
+        fakeCrash.classList.remove("hidden");
+
+        setTimeout(() => {
+            fakeCrash.classList.add("hidden");
+            fakeCrashTroll();
+        }, 3000);
+    }, delay);
+}
+
+// cursor troll
+function randomCursorTroll() {
+    setInterval(() => {
+        if (Math.random() < 0.25) {
+            document.body.style.cursor = "zoom-in";
+
+            setTimeout(() => {
+                document.body.style.cursor = "default";
+            }, 2000);
+        }
+    }, 8000);
+}
+
+// pagina random kantelen
+function randomTiltTroll() {
+    setInterval(() => {
+        if (Math.random() < 0.15 && !alarmActive) {
+            document.body.style.transform = "rotate(1deg)";
+
+            setTimeout(() => {
+                document.body.style.transform = "";
+            }, 1200);
+        }
+    }, 9000);
+}
+
+// starten
+scheduleNextAlarm();
+scheduleNextJumpscare();
+fakeDownloadPopup();
+randomMessage();
+randomImageJump();
+fakeCrashTroll();
+randomCursorTroll();
+randomTiltTroll();
