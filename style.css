@@ -309,27 +309,54 @@ footer{
     }
 }
 
+/* pagina layout */
+
 .member-page{
-    min-height:60vh;
+    min-height:70vh;
     display:flex;
     justify-content:center;
     align-items:center;
     padding:40px;
-    box-sizing:border-box;
 }
+
+/* verhaal box */
 
 .member-story{
     max-width:700px;
     background:rgba(0,0,0,0.5);
-    padding:30px;
-    border-radius:15px;
+    padding:40px;
+    border-radius:18px;
     color:white;
+    text-align:center;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+/* paragrafen */
+
+.member-story p{
+    margin:10px 0;
     text-align:center;
 }
 
+/* titel */
+
+.member-story h2{
+    margin-bottom:20px;
+}
+
+.member-story h3{
+    margin-top:25px;
+}
+
+/* summon knop */
+
 .summon-btn{
     margin-top:30px;
-    padding:18px 30px;
+    padding:18px 32px;
     font-size:18px;
     font-weight:bold;
     background:black;
