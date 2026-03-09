@@ -277,3 +277,29 @@ randomImageJump();
 fakeCrashTroll();
 randomCursorTroll();
 randomTiltTroll();
+
+
+
+const summonBtn = document.getElementById("summon-btn");
+const summonScreen = document.getElementById("han-summon");
+const closeSummon = document.getElementById("close-summon");
+
+if(summonBtn){
+
+summonBtn.addEventListener("click",()=>{
+
+summonScreen.classList.remove("hidden");
+
+});
+
+}
+
+if(closeSummon){
+
+closeSummon.addEventListener("click",()=>{
+
+summonScreen.classList.add("hidden");
+
+});
+
+}
