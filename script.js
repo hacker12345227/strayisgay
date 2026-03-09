@@ -12,6 +12,11 @@ const closeJumpscareBtn = document.getElementById("close-jumpscare");
 const trollMessage = document.getElementById("troll-message");
 const fakeCrash = document.getElementById("fake-crash");
 
+// Han summon
+const summonBtn = document.getElementById("summon-btn");
+const hanSummon = document.getElementById("han-summon");
+const closeSummonBtn = document.getElementById("close-summon");
+
 let popupShown = false;
 let alarmActive = false;
 let stopClicks = 0;
@@ -80,18 +85,22 @@ const jumpscareImages = [
 
 // popup bij scroll
 window.addEventListener("scroll", () => {
-    if (!popupShown && window.scrollY > 500) {
+    if (popup && !popupShown && window.scrollY > 500) {
         popup.classList.remove("hidden");
         popupShown = true;
     }
 });
 
-closePopupBtn.addEventListener("click", () => {
-    popup.classList.add("hidden");
-});
+if (closePopupBtn && popup) {
+    closePopupBtn.addEventListener("click", () => {
+        popup.classList.add("hidden");
+    });
+}
 
 // alarm
 function scheduleNextAlarm() {
+    if (!alarmBox || !stopAlarmBtn) return;
+
     const randomDelay = Math.floor(Math.random() * 20000) + 15000;
     setTimeout(() => {
         startAlarm();
@@ -99,7 +108,7 @@ function scheduleNextAlarm() {
 }
 
 function startAlarm() {
-    if (alarmActive) return;
+    if (!alarmBox || !stopAlarmBtn || alarmActive) return;
 
     alarmActive = true;
     stopClicks = 0;
@@ -115,6 +124,8 @@ function startAlarm() {
 }
 
 function stopAlarm() {
+    if (!alarmBox) return;
+
     alarmActive = false;
     alarmBox.classList.add("hidden");
     document.body.classList.remove("alarm-flash");
@@ -128,19 +139,23 @@ function stopAlarm() {
     scheduleNextAlarm();
 }
 
-stopAlarmBtn.addEventListener("click", () => {
-    if (!alarmActive) return;
+if (stopAlarmBtn) {
+    stopAlarmBtn.addEventListener("click", () => {
+        if (!alarmActive) return;
 
-    stopClicks++;
-    stopAlarmBtn.textContent = `Stop alarm (${stopClicks}/10)`;
+        stopClicks++;
+        stopAlarmBtn.textContent = `Stop alarm (${stopClicks}/10)`;
 
-    if (stopClicks >= 10) {
-        stopAlarm();
-    }
-});
+        if (stopClicks >= 10) {
+            stopAlarm();
+        }
+    });
+}
 
 // jumpscare
 function scheduleNextJumpscare() {
+    if (!jumpscare || !jumpscareImage) return;
+
     const randomDelay = Math.floor(Math.random() * 25000) + 12000;
     setTimeout(() => {
         showJumpscare();
@@ -148,6 +163,8 @@ function scheduleNextJumpscare() {
 }
 
 function showJumpscare() {
+    if (!jumpscare || !jumpscareImage) return;
+
     if (alarmActive) {
         scheduleNextJumpscare();
         return;
@@ -165,18 +182,24 @@ function showJumpscare() {
 }
 
 function hideJumpscare() {
+    if (!jumpscare) return;
+
     jumpscare.classList.add("hidden");
     scheduleNextJumpscare();
 }
 
-closeJumpscareBtn.addEventListener("click", hideJumpscare);
+if (closeJumpscareBtn) {
+    closeJumpscareBtn.addEventListener("click", hideJumpscare);
+}
 
 // fake download popup
 function fakeDownloadPopup() {
     const delay = Math.random() * 30000 + 15000;
 
     setTimeout(() => {
-        alert("Download gestart: straykids_collection_2026.zip");
+        if (document.getElementById("florissa-popup")) {
+            alert("Download gestart: straykids_collection_2026.zip");
+        }
         fakeDownloadPopup();
     }, delay);
 }
@@ -192,7 +215,7 @@ setInterval(() => {
 }, 10000);
 
 window.addEventListener("wheel", (e) => {
-    if (reverseScroll) {
+    if (reverseScroll && document.getElementById("florissa-popup")) {
         window.scrollBy(0, -e.deltaY);
         e.preventDefault();
     }
@@ -200,6 +223,8 @@ window.addEventListener("wheel", (e) => {
 
 // random bericht bovenin
 function randomMessage() {
+    if (!trollMessage) return;
+
     const delay = Math.random() * 25000 + 15000;
 
     setTimeout(() => {
@@ -216,10 +241,11 @@ function randomMessage() {
 
 // random afbeelding springt
 function randomImageJump() {
-    setInterval(() => {
-        const images = document.querySelectorAll(".gallery img");
-        const randomImage = images[Math.floor(Math.random() * images.length)];
+    const images = document.querySelectorAll(".gallery img");
+    if (!images.length) return;
 
+    setInterval(() => {
+        const randomImage = images[Math.floor(Math.random() * images.length)];
         randomImage.style.transform = "translateY(-20px) rotate(-2deg)";
 
         setTimeout(() => {
@@ -230,6 +256,8 @@ function randomImageJump() {
 
 // fake crash
 function fakeCrashTroll() {
+    if (!fakeCrash) return;
+
     const delay = Math.random() * 60000 + 40000;
 
     setTimeout(() => {
@@ -268,38 +296,27 @@ function randomTiltTroll() {
     }, 9000);
 }
 
-// starten
-scheduleNextAlarm();
-scheduleNextJumpscare();
-fakeDownloadPopup();
-randomMessage();
-randomImageJump();
-fakeCrashTroll();
-randomCursorTroll();
-randomTiltTroll();
-
-
-
-const summonBtn = document.getElementById("summon-btn");
-const summonScreen = document.getElementById("han-summon");
-const closeSummon = document.getElementById("close-summon");
-
-if(summonBtn){
-
-summonBtn.addEventListener("click",()=>{
-
-summonScreen.classList.remove("hidden");
-
-});
-
+// Han summon
+if (summonBtn && hanSummon) {
+    summonBtn.addEventListener("click", () => {
+        hanSummon.classList.remove("hidden");
+    });
 }
 
-if(closeSummon){
+if (closeSummonBtn && hanSummon) {
+    closeSummonBtn.addEventListener("click", () => {
+        hanSummon.classList.add("hidden");
+    });
+}
 
-closeSummon.addEventListener("click",()=>{
-
-summonScreen.classList.add("hidden");
-
-});
-
+// starten
+if (document.getElementById("florissa-popup")) {
+    scheduleNextAlarm();
+    scheduleNextJumpscare();
+    fakeDownloadPopup();
+    randomMessage();
+    randomImageJump();
+    fakeCrashTroll();
+    randomCursorTroll();
+    randomTiltTroll();
 }
