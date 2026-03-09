@@ -79,6 +79,30 @@ header{
     backdrop-filter:blur(6px);
 }
 
+.navbar{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.navbar a{
+    text-decoration:none;
+    color:white;
+    background:rgba(0,0,0,0.45);
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.navbar a:hover{
+    background:white;
+    color:black;
+    transform:scale(1.05);
+}
+
 /* gallery */
 .gallery{
     display:grid;
